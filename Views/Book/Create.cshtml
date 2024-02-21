@@ -1,0 +1,28 @@
+@model LibraryManagementAssignment.ViewModels.BookCreateViewModel
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="AuthorId">Author</label>
+        <select id="AuthorId" name="AuthorId" class="form-control">
+            @foreach (var author in Model.Authors)
+            {
+                <option value="@author.Id">@author.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="LibraryBranchId">Library Branch</label>
+        <select id="LibraryBranchId" name="LibraryBranchId" class="form-control">
+            @foreach (var branch in Model.LibraryBranches)
+            {
+                <option value="@branch.LibraryBranchId">@branch.BranchName</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

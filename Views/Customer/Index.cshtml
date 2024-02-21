@@ -1,0 +1,21 @@
+@model List<LibraryManagementAssignment.ViewModels.CustomerViewModel>
+<h2>Customers</h2>
+<a href="@Url.Action("Create", "Customer")" class="btn btn-primary">Create Customer</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Customer Id</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>@customer.CustomerId</td>
+            <td>@customer.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
