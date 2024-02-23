@@ -2527,23 +2527,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/ruixinxu/.nuget/packages/": {},
-    "/usr/local/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\fengz\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj",
+      "projectUniqueName": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj",
       "projectName": "LibraryManagementAssignment",
-      "projectPath": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj",
-      "packagesPath": "/Users/ruixinxu/.nuget/packages/",
-      "outputPath": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/",
+      "projectPath": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj",
+      "packagesPath": "C:\\Users\\fengz\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "/Users/ruixinxu/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\fengz\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -2601,7 +2597,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

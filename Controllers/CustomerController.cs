@@ -37,5 +37,50 @@ namespace LibraryManagementAssignment.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var customer = _context.Customers.FirstOrDefault(customer => customer.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            var customerViewModel = new CustomerViewModel
+            {
+                CustomerId = customer.Id,
+                Name = customer.Name
+            };
+
+            return View(customerViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(CustomerViewModel customerViewModel)
+        {
+            var customer = _context.Customers.FirstOrDefault(customer => customer.Id == customerViewModel.CustomerId);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            customer.Name = customerViewModel.Name;
+            _context.Update(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var customer = _context.Customers.Find(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

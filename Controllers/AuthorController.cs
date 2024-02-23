@@ -34,6 +34,7 @@ namespace LibraryManagementAssignment.Controllers
 
             return View(authorsWithBooks);
         }
+
         public IActionResult Create()
         {
             return View();
@@ -47,5 +48,57 @@ namespace LibraryManagementAssignment.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult Edit(int id)
+        {
+            var author = _context.Authors.Find(id);
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            var authorViewModel = new AuthorViewModel
+            {
+                Id = author.Id,
+                Name = author.Name
+            };
+
+            return View(authorViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(AuthorViewModel authorViewModel)
+        {
+            var author = new Author
+            {
+                Id = authorViewModel.Id,
+                Name = authorViewModel.Name
+            };
+
+            _context.Update(author);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var authorExists = _context.Books.Any(book => book.AuthorId == id);
+            if (authorExists)
+            {
+                TempData["ErrorMessage"] = "Cannot delete this author because they have associated books.";
+                return RedirectToAction("Index");
+            }
+
+            var author = _context.Authors.Find(id);
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            _context.Authors.Remove(author);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

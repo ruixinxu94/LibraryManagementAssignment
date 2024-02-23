@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementAssignment.models;
 
@@ -8,7 +9,11 @@ public class Book
 
     public string Title { get; set; }
 
-    public int AuthorId { get; set; }
+    [ForeignKey("Author")] public int AuthorId { get; set; }
 
-    public int LibraryBranchId { get; set; }
+    public Author Author { get; set; }
+
+    [ForeignKey("LibraryBranch")] public int LibraryBranchId { get; set; }
+
+    public LibraryBranch LibraryBranch { get; set; }
 }
