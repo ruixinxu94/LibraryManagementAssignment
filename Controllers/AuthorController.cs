@@ -16,23 +16,31 @@ namespace LibraryManagementAssignment.Controllers
 
         public IActionResult Index()
         {
-            var authorsWithBooks = _context.Authors
-                .Select(author => new
-                {
-                    Author = author,
-                    BookTitle = _context.Books
-                        .Where(book => book.AuthorId == author.Id)
-                        .Select(book => book.Title)
-                        .FirstOrDefault()
-                })
-                .ToList()
-                .Select(x => new AuthorViewModel
-                {
-                    Id = x.Author.Id,
-                    Name = x.Author.Name,
-                }).ToList();
+            try
+            {
+                var authorsWithBooks = _context.Authors
+                    .Select(author => new
+                    {
+                        Author = author,
+                        BookTitle = _context.Books
+                            .Where(book => book.AuthorId == author.Id)
+                            .Select(book => book.Title)
+                            .FirstOrDefault()
+                    })
+                    .ToList()
+                    .Select(x => new AuthorViewModel
+                    {
+                        Id = x.Author.Id,
+                        Name = x.Author.Name,
+                    }).ToList();
 
-            return View(authorsWithBooks);
+                return View(authorsWithBooks);
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "An error occurred while retrieving authors from the database:" + e.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Create()
@@ -43,9 +51,17 @@ namespace LibraryManagementAssignment.Controllers
         [HttpPost]
         public IActionResult Create(AuthorViewModel model)
         {
-            var author = new Author { Name = model.Name };
-            _context.Authors.Add(author);
-            _context.SaveChanges();
+            try
+            {
+                var author = new Author { Name = model.Name };
+                _context.Authors.Add(author);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "An error occurred while creating the author." + e.Message;
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -69,36 +85,51 @@ namespace LibraryManagementAssignment.Controllers
         [HttpPost]
         public IActionResult Edit(AuthorViewModel authorViewModel)
         {
-            var author = new Author
+            try
             {
-                Id = authorViewModel.Id,
-                Name = authorViewModel.Name
-            };
+                var author = new Author
+                {
+                    Id = authorViewModel.Id,
+                    Name = authorViewModel.Name
+                };
 
-            _context.Update(author);
-            _context.SaveChanges();
+                _context.Update(author);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "An error occurred while editing the author." + e.Message;
+            }
+
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            var authorExists = _context.Books.Any(book => book.AuthorId == id);
-            if (authorExists)
+            try
             {
-                TempData["ErrorMessage"] = "Cannot delete this author because they have associated books.";
-                return RedirectToAction("Index");
+                var authorExists = _context.Books.Any(book => book.AuthorId == id);
+                if (authorExists)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this author because they have associated books.";
+                    return RedirectToAction("Index");
+                }
+
+                var author = _context.Authors.Find(id);
+                if (author == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Authors.Remove(author);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "An error occurred while deleting the author." + e.Message;
             }
 
-            var author = _context.Authors.Find(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-
-            _context.Authors.Remove(author);
-            _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
     }
 }

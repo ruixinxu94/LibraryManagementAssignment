@@ -10,3 +10,12 @@
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    @if (TempData["ErrorMessage"] != null)
+    {
+        @:var message = "@Html.Raw(TempData["ErrorMessage"])";
+        @:alert(message);
+    }
+});
+</script>

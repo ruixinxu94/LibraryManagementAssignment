@@ -29,3 +29,12 @@
     }
     </tbody>
 </table>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    @if (TempData["ErrorMessage"] != null)
+    {
+        @:var message = "@Html.Raw(TempData["ErrorMessage"])";
+        @:alert(message);
+    }
+});
+</script>

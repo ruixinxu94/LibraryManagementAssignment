@@ -3,18 +3,20 @@ using LibraryManagementAssignment.models;
 using LibraryManagementAssignment.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibraryManagementAssignment.Controllers
+namespace LibraryManagementAssignment.Controllers;
+
+public class CustomerController : Controller
 {
-    public class CustomerController : Controller
+    private readonly AppDbContext _context;
+
+    public CustomerController(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public CustomerController(AppDbContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult Index()
+    public IActionResult Index()
+    {
+        try
         {
             var customers = _context.Customers.Select(c => new CustomerViewModel
             {
@@ -24,41 +26,58 @@ namespace LibraryManagementAssignment.Controllers
 
             return View(customers);
         }
-
-        public IActionResult Create()
+        catch (Exception e)
         {
-            return View();
+            TempData["ErrorMessage"] = "An error occurred while retrieving customers from the database:" + e.Message;
+            return RedirectToAction("Index");
         }
+    }
 
-        [HttpPost]
-        public IActionResult Create(Customer customer)
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Create(Customer customer)
+    {
+        try
         {
             _context.Customers.Add(customer);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        public IActionResult Edit(int id)
+        catch (Exception e)
         {
-            var customer = _context.Customers.FirstOrDefault(customer => customer.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            TempData["ErrorMessage"] = "An error occurred while creating the customer:" + e.Message;
+            return RedirectToAction("Index");
+        }
+    }
 
-            var customerViewModel = new CustomerViewModel
-            {
-                CustomerId = customer.Id,
-                Name = customer.Name
-            };
-
-            return View(customerViewModel);
+    public IActionResult Edit(int id)
+    {
+        var customer = _context.Customers.FirstOrDefault(customer => customer.Id == id);
+        if (customer == null)
+        {
+            return NotFound();
         }
 
-        [HttpPost]
-        public IActionResult Edit(CustomerViewModel customerViewModel)
+        var customerViewModel = new CustomerViewModel
         {
-            var customer = _context.Customers.FirstOrDefault(customer => customer.Id == customerViewModel.CustomerId);
+            CustomerId = customer.Id,
+            Name = customer.Name
+        };
+
+        return View(customerViewModel);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(CustomerViewModel customerViewModel)
+    {
+        try
+        {
+            var customer =
+                _context.Customers.FirstOrDefault(customer => customer.Id == customerViewModel.CustomerId);
             if (customer == null)
             {
                 return NotFound();
@@ -69,18 +88,31 @@ namespace LibraryManagementAssignment.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        catch (Exception e)
+        {
+            TempData["ErrorMessage"] = "An error occurred while editing the customer:" + e.Message;
+            return RedirectToAction("Index");
+        }
+    }
 
-        public IActionResult Delete(int id)
+    public IActionResult Delete(int id)
+    {
+        try
         {
             var customer = _context.Customers.Find(id);
             if (customer == null)
             {
                 return NotFound();
             }
+
             _context.Customers.Remove(customer);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        catch (Exception e)
+        {
+            TempData["ErrorMessage"] = "An error occurred while deleting the customer:" + e.Message;
+            return RedirectToAction("Index");
+        }
     }
 }

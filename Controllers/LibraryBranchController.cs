@@ -16,15 +16,24 @@ namespace LibraryManagementAssignment.Controllers
 
         public IActionResult Index()
         {
-            var branches = _context
-                .LibraryBranches
-                .Select(branch => new LibraryBranchModel
-                {
-                    LibraryBranchId = branch.Id,
-                    BranchName = branch.BranchName
-                }).ToList();
+            try
+            {
+                var branches = _context
+                    .LibraryBranches
+                    .Select(branch => new LibraryBranchModel
+                    {
+                        LibraryBranchId = branch.Id,
+                        BranchName = branch.BranchName
+                    }).ToList();
 
-            return View(branches);
+                return View(branches);
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] =
+                    "An error occurred while retrieving library branches from the database:" + e.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Create()
@@ -35,31 +44,47 @@ namespace LibraryManagementAssignment.Controllers
         [HttpPost]
         public IActionResult Create(LibraryBranchModel model)
         {
-            var libraryBranch = new LibraryBranch
+            try
             {
-                BranchName = model.BranchName
-            };
+                var libraryBranch = new LibraryBranch
+                {
+                    BranchName = model.BranchName
+                };
 
-            _context.LibraryBranches.Add(libraryBranch);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+                _context.LibraryBranches.Add(libraryBranch);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "An error occurred while creating the library branch:" + e.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         public IActionResult Edit(int id)
         {
-            var libraryBranch = _context.LibraryBranches.Find(id);
-            if (libraryBranch == null)
+            try
             {
-                return NotFound();
+                var libraryBranch = _context.LibraryBranches.Find(id);
+                if (libraryBranch == null)
+                {
+                    return NotFound();
+                }
+
+                var model = new LibraryBranchModel
+                {
+                    LibraryBranchId = libraryBranch.Id,
+                    BranchName = libraryBranch.BranchName
+                };
+
+                return View(model);
             }
-
-            var model = new LibraryBranchModel
+            catch (Exception e)
             {
-                LibraryBranchId = libraryBranch.Id,
-                BranchName = libraryBranch.BranchName
-            };
-
-            return View(model);
+                TempData["ErrorMessage"] = "An error occurred while editing the library branch:" + e.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
@@ -76,25 +101,33 @@ namespace LibraryManagementAssignment.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         public IActionResult Delete(int id)
         {
-            var branchExists = _context.Books.Any(book => book.LibraryBranchId == id);
-            if (branchExists)
+            try
             {
-                TempData["ErrorMessage"] = "Cannot delete this library branch because it has associated books.";
+                var branchExists = _context.Books.Any(book => book.LibraryBranchId == id);
+                if (branchExists)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this library branch because it has associated books.";
+                    return RedirectToAction("Index");
+                }
+
+                var libraryBranch = _context.LibraryBranches.Find(id);
+                if (libraryBranch == null)
+                {
+                    return NotFound();
+                }
+
+                _context.LibraryBranches.Remove(libraryBranch);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            var libraryBranch = _context.LibraryBranches.Find(id);
-            if (libraryBranch == null)
+            catch (Exception e)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "An error occurred while deleting the library branch:" + e.Message;
+                return RedirectToAction("Index");
             }
-
-            _context.LibraryBranches.Remove(libraryBranch);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
         }
     }
 }
