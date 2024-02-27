@@ -23,7 +23,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -44,7 +43,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -63,7 +61,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -78,7 +75,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BranchName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
