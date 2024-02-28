@@ -5,7 +5,7 @@
 namespace LibraryManagementAssignment.Migrations
 {
     /// <inheritdoc />
-    public partial class DataInsert : Migration
+    public partial class DataInsetion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

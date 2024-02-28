@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagementAssignment.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240220220042_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240228055235_DatabaseInitialization")]
+    partial class DatabaseInitialization
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,7 +26,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -47,10 +46,13 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("LibraryBranchId");
 
                     b.ToTable("Books");
                 });
@@ -62,7 +64,6 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -77,12 +78,30 @@ namespace LibraryManagementAssignment.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("BranchName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.ToTable("LibraryBranches");
+                });
+
+            modelBuilder.Entity("LibraryManagementAssignment.models.Book", b =>
+                {
+                    b.HasOne("LibraryManagementAssignment.models.Author", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LibraryManagementAssignment.models.LibraryBranch", "LibraryBranch")
+                        .WithMany()
+                        .HasForeignKey("LibraryBranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("LibraryBranch");
                 });
 #pragma warning restore 612, 618
         }
