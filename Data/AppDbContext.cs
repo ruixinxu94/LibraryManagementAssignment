@@ -18,9 +18,9 @@ namespace LibraryManagementAssignment.Data
         }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlite(_configuration.GetConnectionString("DefaultConnection"));
+        // }
     }
 }

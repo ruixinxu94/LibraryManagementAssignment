@@ -125,6 +125,7 @@
 /Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/Debug/net8.0/LibraryManagementAssignment.pdb
 /Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/Debug/net8.0/LibraryManagementAssignment.genruntimeconfig.cache
 /Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/Debug/net8.0/ref/LibraryManagementAssignment.dll
+/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/Debug/net8.0/LibraryManagementAssignment.sourcelink.json
 C:\Users\fengz\Desktop\fall2023\system programming\LibraryManagementAssignment\obj\Debug\net8.0\LibraryManagementAssignment.dll
 C:\Users\fengz\Desktop\fall2023\system programming\LibraryManagementAssignment\obj\Debug\net8.0\refint\LibraryManagementAssignment.dll
 C:\Users\fengz\Desktop\fall2023\system programming\LibraryManagementAssignment\obj\Debug\net8.0\LibraryManagementAssignment.pdb

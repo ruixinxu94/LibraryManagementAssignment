@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj": {}
+    "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj": {
+    "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj",
+        "projectUniqueName": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj",
         "projectName": "LibraryManagementAssignment",
-        "projectPath": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\LibraryManagementAssignment.csproj",
-        "packagesPath": "C:\\Users\\fengz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fengz\\Desktop\\fall2023\\system programming\\LibraryManagementAssignment\\obj\\",
+        "projectPath": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/LibraryManagementAssignment.csproj",
+        "packagesPath": "/Users/ruixinxu/.nuget/packages/",
+        "outputPath": "/Users/ruixinxu/RiderProjects/LibraryManagementAssignment/obj/",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\fengz\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "/Users/ruixinxu/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -72,7 +75,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
